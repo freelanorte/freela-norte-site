@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Freela Norte — Contato</title>
+
+  <!-- Fonte (corrigida) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
+
+  <!-- Se você já tem um styles.css global, pode manter -->
+  <link rel="stylesheet" href="css/styles.css">
+
+  <style>
+    :root{
+      --green: #19d46a;
+      --blue: #1d79ff;
+      --paper: #ffe8b6;
+      --ink: #0b0b0b;
+      --shadow: 0 22px 70px rgba(0,0,0,.22);
+
+      --outline: 3px solid var(--ink);
+      --r: 22px;
+      --r2: 18px;
+      --max: 1100px;
+      --pad: 18px;
+    }
+
+    *{ box-sizing: border-box; }
+    html, body{ height: 100%; }
+    body{
+      margin:0;
+      font-family: "Montserrat", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--ink);
+      background: var(--green);
+      overflow-x:hidden;
+    }
+
+    /* ===== Fundo vídeo ===== */
+    .bg{
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      overflow:hidden;
+      background: var(--green);
+    }
+    .bg video{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .bgOverlay{
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background:
+        radial-gradient(900px 520px at 20% 10%, rgba(255,232,182,.24), rgba(0,0,0,0)),
+        radial-gradient(900px 520px at 80% 20%, rgba(29,121,255,.16), rgba(0,0,0,0)),
+        linear-gradient(180deg, rgba(0,0,0,.08), rgba(0,0,0,.16));
+    }
+
+    .container{
+      width: min(var(--max), calc(100% - (var(--pad) * 2)));
+      margin-inline:auto;
+    }
+
+    /* ===== Topbar ===== */
+    .topbar{
+      margin-top: 14px;
+      border: var(--outline);
+      border-radius: 999px;
+      background: rgba(255,255,255,.92);
+      box-shadow: var(--shadow);
+      padding: 12px 14px;
+
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .8px;
+      font-size: 12px;
+    }
+    .brand img{ height: 34px; width:auto; display:block; }
+    .btnGhost, .btnPrimary{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      border-radius: 999px;
+      padding: 10px 12px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .8px;
+      font-size: 12px;
+      cursor:pointer;
+      border: var(--outline);
+      user-select:none;
+      transition: transform .12s ease;
+      text-decoration:none;
+      color: var(--ink);
+    }
+    .btnGhost{ background: rgba(255,255,255,.96); }
+    .btnPrimary{ background: var(--paper); }
+    .btnGhost:hover, .btnPrimary:hover{ transform: translateY(-1px); }
+    .btnGhost:active, .btnPrimary:active{ transform: translateY(0px); }
+
+    /* ===== Layout responsivo do chat ===== */
+    .page{
+      min-height: calc(100vh - 14px);
+      padding: 14px 0 22px;
+      display:flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .layout{
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 14px;
+      align-items: start;
+      margin-top: 12px;
+    }
+
+    /* Painel lateral (PC) */
+    .side{
+      border: var(--outline);
+      border-radius: var(--r);
+      background: rgba(255,255,255,.92);
+      box-shadow: var(--shadow);
+      padding: 16px;
+      overflow:hidden;
+    }
+    .kicker{
+      display:inline-flex;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 2px solid rgba(0,0,0,.18);
+      background: rgba(255,255,255,.96);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .9px;
+      font-size: 11px;
+    }
+    .sideTitle{
+      margin: 12px 0 8px;
+      font-size: 18px;
+      font-weight: 900;
+      letter-spacing: -0.01em;
+    }
+    .sideText{
+      margin:0;
+      font-weight: 900;
+      font-size: 13px;
+      line-height: 1.3;
+      opacity: .92;
+    }
+    .sideLine{
+      height: 3px;
+      border-radius: 999px;
+      background: rgba(0,0,0,.14);
+      margin: 14px 0;
+    }
+    .miniGrid{
+      display:grid;
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .mini{
+      border-radius: 18px;
+      border: 2px solid rgba(0,0,0,.18);
+      background: rgba(255,232,182,.55);
+      padding: 12px;
+      display:flex;
+      gap: 10px;
+      align-items:center;
+    }
+    .miniDot{
+      width: 12px;
+      height: 12px;
+      border-radius: 999px;
+      background: var(--blue);
+      border: 2px solid rgba(0,0,0,.18);
+      flex: 0 0 auto;
+    }
+    .mini b{
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .8px;
+      font-size: 11px;
+    }
+
+    /* Card do chat */
+    .cardX{
+      width:100%;
+      border: var(--outline);
+      border-radius: var(--r);
+      background: rgba(255,232,182,.92);
+      box-shadow: var(--shadow);
+      padding: 14px;
+    }
+
+    .chatHeader{
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .chatHeader h1{
+      margin:0;
+      font-size: 16px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .9px;
+    }
+    .chatHeader .tag{
+      display:inline-flex;
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 2px solid rgba(0,0,0,.18);
+      background: rgba(255,255,255,.9);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .8px;
+      font-size: 11px;
+    }
+
+    /* ChatBox grande no PC e bom no mobile */
+    .chatBox{
+      border: var(--outline);
+      border-radius: var(--r2);
+      background: rgba(255,255,255,.60);
+      padding: 12px;
+      overflow:auto;
+
+      /* altura dinâmica */
+      height: clamp(360px, 55vh, 620px);
+      scroll-behavior: smooth;
+    }
+
+    .bubble{
+      border: var(--outline);
+      border-radius: 16px;
+      padding: 10px 12px;
+      background: rgba(255,255,255,.82);
+      font-weight: 900;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .6px;
+      line-height: 1.25;
+      max-width: 92%;
+      word-break: break-word;
+    }
+    .bubble + .bubble{ margin-top: 10px; }
+    .bubble.me{
+      margin-left: auto;
+      background: var(--green);
+      color: var(--ink);
+    }
+
+    /* Input row */
+    .row{
+      margin-top: 12px;
+      display:flex;
+      gap: 10px;
+      align-items: stretch;
+    }
+    .searchInput{
+      flex: 1;
+      border-radius: 18px;
+      border: var(--outline);
+      padding: 12px 12px;
+      font-weight: 900;
+      outline:none;
+      background: rgba(255,255,255,.86);
+      text-transform: uppercase;
+      letter-spacing: .6px;
+      font-size: 12px;
+    }
+    .searchInput:disabled{ opacity: .7; }
+
+    .btnPrimary:disabled{
+      opacity: .55;
+      cursor:not-allowed;
+      transform:none;
+    }
+
+    .err{
+      margin-top:10px;
+      border: var(--outline);
+      border-radius: 16px;
+      padding: 10px 12px;
+      background: rgba(255, 80, 80, .22);
+      font-weight: 900;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .6px;
+      display:none;
+    }
+
+    .terms{
+      margin-top: 10px;
+      border: var(--outline);
+      border-radius: 16px;
+      background: rgba(255,255,255,.92);
+      padding: 10px 12px;
+      display:none;
+      gap: 10px;
+      flex-direction:column;
+    }
+    .termsRow{
+      display:flex;
+      gap: 10px;
+      align-items:flex-start;
+      font-weight: 900;
+      font-size: 12px;
+      line-height: 1.35;
+      letter-spacing: .2px;
+    }
+    .termsRow input{ transform: translateY(2px); }
+    .terms a{
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .6px;
+      font-size: 11px;
+      text-decoration: underline;
+    }
+
+    .cardSub{
+      margin: 10px 2px 0;
+      font-weight: 900;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .6px;
+      opacity: .85;
+    }
+
+    /* Mobile */
+    @media (max-width: 980px){
+      .layout{ grid-template-columns: 1fr; }
+      .side{ order: 2; }
+      .cardX{ order: 1; }
+      .chatBox{ height: clamp(340px, 52vh, 560px); }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="bg">
+    <video autoplay muted loop playsinline preload="auto">
+      <source src="img/fundo.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="bgOverlay"></div>
+
+  <main class="page">
+    <div class="container">
+      <header class="topbar">
+        <div class="brand">
+          <img src="img/logo.png" alt="Freela Norte">
+          <span>Freela Norte</span>
+        </div>
+        <div style="display:flex; gap:10px; align-items:center;">
+          <a class="btnGhost" href="index.html">Home</a>
+          <a class="btnPrimary" href="chat.html?tipo=contato">Contato</a>
+        </div>
+      </header>
+
+      <section class="layout">
+        <!-- Chat -->
+        <section class="cardX" aria-label="Chat de contato">
+          <div class="chatHeader">
+            <h1 id="chatTitle">Contato</h1>
+            <span class="tag" id="chatTag">WhatsApp</span>
+          </div>
+
+          <div class="chatBox" id="chat">
+            <div class="bubble">Oi! 👋 Vamos rapidinho. Qual seu <b>nome</b>?</div>
+          </div>
+
+          <div class="row">
+            <input id="field" class="searchInput" placeholder="Digite aqui..." autocomplete="name" />
+            <button id="send" class="btnPrimary" type="button">Enviar</button>
+          </div>
+
+          <div class="err" id="err"></div>
+
+          <div class="terms" id="termsBox">
+            <div class="termsRow">
+              <input type="checkbox" id="agree">
+              <label for="agree">
+                Eu li e aceito os <a href="termos.html" target="_blank" rel="noopener">Termos</a> e autorizo o uso dos meus dados para cadastro/contato.
+              </label>
+            </div>
+            <div class="termsRow">
+              <b>Assinatura:</b> <span id="sigName">—</span>
+            </div>
+          </div>
+
+          <p class="cardSub">
+            Ao finalizar, você será redirecionado para o WhatsApp: <b>(66) 99720-8706</b>
+          </p>
+        </section>
+
+        <!-- Side panel (PC) -->
+        <aside class="side" aria-label="Informações">
+          <span class="kicker" id="sideKicker">Freela Norte</span>
+          <h2 class="sideTitle" id="sideTitle">Atendimento rápido</h2>
+          <p class="sideText" id="sideText">
+            Responda 3 perguntas e nós abrimos seu WhatsApp com a mensagem pronta.
+          </p>
+
+          <div class="sideLine"></div>
+
+          <div class="miniGrid">
+            <div class="mini"><span class="miniDot"></span><div><b>Cliente</b><div class="sideText" style="margin-top:4px;">Quero contratar um serviço.</div></div></div>
+            <div class="mini"><span class="miniDot" style="background:var(--green);"></span><div><b>Freelancer</b><div class="sideText" style="margin-top:4px;">Quero me cadastrar e receber clientes.</div></div></div>
+            <div class="mini"><span class="miniDot" style="background:var(--paper);"></span><div><b>Contato</b><div class="sideText" style="margin-top:4px;">Parcerias, anúncios e suporte.</div></div></div>
+          </div>
+        </aside>
+      </section>
+    </div>
+  </main>
+
+  <script>
+  (function(){
+    const WA_NUMBER = "5566997208706";
+    const chat = document.getElementById("chat");
+    const field = document.getElementById("field");
+    const send = document.getElementById("send");
+    const err = document.getElementById("err");
+
+    const termsBox = document.getElementById("termsBox");
+    const agree = document.getElementById("agree");
+    const sigName = document.getElementById("sigName");
+
+    const chatTitle = document.getElementById("chatTitle");
+    const chatTag = document.getElementById("chatTag");
+    const sideTitle = document.getElementById("sideTitle");
+    const sideText = document.getElementById("sideText");
+    const sideKicker = document.getElementById("sideKicker");
+
+    const url = new URL(window.location.href);
+    const tipo = (url.searchParams.get("tipo") || "contato").toLowerCase();
+    const servico = (url.searchParams.get("servico") || "").trim();
+
+    // Ajusta textos conforme tipo (sem mudar fluxo)
+    function setMode(){
+      if(tipo === "freelancer"){
+        chatTitle.textContent = "Cadastro Freelancer";
+        chatTag.textContent = "Trabalho";
+        sideKicker.textContent = "Freelancer";
+        sideTitle.textContent = "Ganhe visibilidade real";
+        sideText.textContent = "Crie seu perfil e apareça para pessoas que estão buscando contratar agora.";
+        return;
+      }
+      if(tipo === "cliente"){
+        chatTitle.textContent = "Contato Cliente";
+        chatTag.textContent = "Serviço";
+        sideKicker.textContent = "Cliente";
+        sideTitle.textContent = "Encontre profissionais locais";
+        sideText.textContent = "Descreva o que precisa e a gente abre seu WhatsApp com a mensagem pronta.";
+        return;
+      }
+      chatTitle.textContent = "Contato";
+      chatTag.textContent = "WhatsApp";
+      sideKicker.textContent = "Freela Norte";
+      sideTitle.textContent = "Atendimento rápido";
+      sideText.textContent = "Responda 3 perguntas e nós abrimos seu WhatsApp com a mensagem pronta.";
+    }
+    setMode();
+
+    const state = { step: 0, nome:"", email:"", profissao:"" };
+
+    const questions = [
+      "Perfeito! Agora seu <b>email</b> 👇",
+      "Boa! Qual sua <b>profissão</b>?",
+      "Último passo: aceite os termos pra eu te mandar pro WhatsApp ✅"
+    ];
+
+    function addBubble(text, me=false){
+      const div = document.createElement("div");
+      div.className = "bubble" + (me ? " me" : "");
+      div.innerHTML = text;
+      chat.appendChild(div);
+      chat.scrollTop = chat.scrollHeight;
+    }
+
+    function showError(msg){ err.style.display="block"; err.textContent = msg; }
+    function clearError(){ err.style.display="none"; err.textContent=""; }
+
+    function isEmail(v){
+      return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i.test((v||"").trim());
+    }
+
+    function labelTipo(){
+      if(tipo === "freelancer") return "Cadastro Freelancer";
+      if(tipo === "cliente") return "Contato Cliente";
+      return "Contato";
+    }
+
+    function goWhats(){
+      const msg =
+`Olá! Vim pelo site Freela Norte.
+
+Tipo: ${labelTipo()}
+Serviço buscado: ${servico || "—"}
+Nome: ${state.nome}
+Email: ${state.email}
+Profissão: ${state.profissao}
+
+Assinatura (aceite termos): ${state.nome}
+
+Quero me cadastrar / saber mais do app.`;
+
+      const link = "https://wa.me/" + WA_NUMBER + "?text=" + encodeURIComponent(msg);
+      window.location.href = link;
+    }
+
+    function lockInput(){
+      field.disabled = true;
+      send.disabled = true;
+      send.style.opacity = ".6";
+    }
+
+    function next(){
+      clearError();
+      const v = field.value.trim();
+      if(!v){ showError("Preenche aí 👊"); return; }
+
+      if(state.step === 0){
+        state.nome = v;
+        sigName.textContent = state.nome;
+        addBubble(v, true);
+        addBubble(questions[0]);
+        state.step = 1;
+        field.value = "";
+        field.placeholder = "ex: seuemail@gmail.com";
+        field.setAttribute("autocomplete","email");
+        field.focus();
+        return;
+      }
+
+      if(state.step === 1){
+        if(!isEmail(v)){ showError("Email inválido. Ex: nome@gmail.com"); return; }
+        state.email = v;
+        addBubble(v, true);
+        addBubble(questions[1]);
+        state.step = 2;
+        field.value = "";
+        field.placeholder = "Ex: Eletricista, Pedreiro, Designer...";
+        field.setAttribute("autocomplete","organization-title");
+        field.focus();
+        return;
+      }
+
+      if(state.step === 2){
+        state.profissao = v;
+        addBubble(v, true);
+        addBubble(questions[2]);
+
+        termsBox.style.display = "flex";
+        lockInput();
+
+        // evita múltiplos listeners se o usuário recarregar
+        agree.onchange = () => {
+          if(agree.checked){
+            addBubble("Perfeito ✅ abrindo WhatsApp...");
+            setTimeout(goWhats, 600);
+          }
+        };
+      }
+    }
+
+    send.addEventListener("click", next);
+    field.addEventListener("keydown", (e)=>{ if(e.key === "Enter") next(); });
+
+    // foco inicial
+    field.focus();
+  })();
+  </script>
+</body>
+</html>
